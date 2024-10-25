@@ -1,0 +1,18 @@
+#sampleTable {
+    border: 2px solid black;
+}
+
+#sampleTable td, th { 
+    color: black;
+    text-align: center;
+    padding: 8px;
+    border: 1px solid black;
+}
+
+#sampleTable  {
+    border-collapse: collapse;
+}
+
+#sampleTable tr:nth-child(even) {
+    background-color: lightgray;
+}

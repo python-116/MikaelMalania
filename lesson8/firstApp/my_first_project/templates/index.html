@@ -1,0 +1,29 @@
+{%extends "base.html" %}
+
+{% block content %}
+    <!-- Create me a sample html body for home page -->
+     <h1>Welcome to our website!</h1>
+     <p>This is the home page</p>
+     
+     <h2>Our team</h2>
+     <!-- Add a table with our successful projects -->
+    <table style="border: solid 1px; padding: 5px;">
+    <tr>
+        <th>Project Name</th>
+        <th>Description</th>
+        <th>Year</th>
+    </tr>
+    {% for project in projects %}
+        <tr>
+            <td>{{ project.name }}</td>
+            <td>{{ project.description }}</td>
+            <td>{{ project.year }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+
+    <p>
+        Current Year is {{ current_year }}
+    </p>
+      
+{% endblock %}

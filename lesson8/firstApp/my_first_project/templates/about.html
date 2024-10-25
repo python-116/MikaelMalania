@@ -1,0 +1,25 @@
+{%extends "base.html" %}
+
+{% block content %}
+    <h1>About</h1>
+    <p>This is the about page</p>
+    <h2>Our workers</h2>
+    <!-- table of workers -->
+
+    <table id="sampleTable">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Position</th>
+        </tr>
+        
+        {% for item in coworkers %}
+            <tr style="border: 1px solid black">
+                <td>{{item.first_name}}</td>
+                <td>{{item.last_name}}</td>
+                <td>{{item.position}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+
+{% endblock %}
