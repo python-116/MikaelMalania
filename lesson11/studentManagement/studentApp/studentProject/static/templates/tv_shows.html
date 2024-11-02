@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>Tv Show Information Search Tool</p>
+    <form id="showForm" method="POST">
+        {% csrf_token %}
+        <label for="show_name">Enter the name of a TV show:</label>
+        <input type="text" id="show_name" name="show_name" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if found_show %}
+        <table>
+            <tr>
+                <th>IMDB Score</th>
+                <th>Official Link</th>
+                <th>Image</th>
+                <th>Summary</th>
+            </tr>
+
+            <tr>
+                <td>{{ imdb_score }}</td>
+                <td><a href="{{ official_site }}">{{ official_site }}</a></td>
+                <td><img src="{{ image }}" alt="TV Show Image"></td>
+                <td>{{ summary }}</td>
+            </tr>
+            
+
+        </table>
+    {% endif %}
+
+    {% if not found_show %}
+
+        <p>No TV show found with that name.</p>
+
+    {% endif %}
+
+{% endblock %}

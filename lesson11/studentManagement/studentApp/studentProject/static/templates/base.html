@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+
+    </head>
+    <body>
+        <header id="navHeader">
+            <nav style="text-align: center;">
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'addbook' %}">About</a>
+                <a href="{% url 'student_registration' %}">Register Student</a>
+                <a href="{% url 'tv_show_details' %}">Contact</a>
+                </ul>
+            </nav>
+        </header>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>
