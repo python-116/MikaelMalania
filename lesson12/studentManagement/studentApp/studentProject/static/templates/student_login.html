@@ -1,0 +1,23 @@
+{%extends 'base.html' %}
+
+{% block content %}
+    <div class="studentLogin">
+        <form id="studentLoginForm" method="POST">
+            {% csrf_token %}
+            <label for="username">Student Username:</label>
+            <input type="text" id="student_username" name="username" required>
+
+            <label for="password">Student Password:</label>
+            <input type="text" id="student_password" name="password" required>
+
+            <button type="submit">Login</button>
+
+            {% if error %}
+                <p style="color: red;">
+                    {{error}}
+                </p>
+            {% endif %}
+        </form>
+    </div>
+
+{% endblock %}
