@@ -15,6 +15,7 @@ from django.contrib.staticfiles.storage import StaticFilesStorage
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 class NonCatchingFileStorage(StaticFilesStorage):
     def get_headers(self, name, content=None):
         headers = super().get_headers(name, content)
@@ -26,13 +27,14 @@ class NonCatchingFileStorage(StaticFilesStorage):
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-iq=-s$wg0ivr3qh_w1jj++9rw+8jf!5a2ke=*e@#b1m+p6^r9!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
