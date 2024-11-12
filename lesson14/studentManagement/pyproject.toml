@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "studentmanagement"
+version = "0.1.0"
+description = "My first student management system"
+authors = ["Mikael Malania <m.malania@noxtton.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^5.1.2"
+aiohttp = "^3.10.10"
+random-strings = "^0.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
