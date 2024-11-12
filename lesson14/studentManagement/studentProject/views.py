@@ -34,10 +34,11 @@ def book_list(request):
 async def tv_shows_api(tv_show_name):
     tv_show_api = f'https://api.tvmaze.com/search/shows?q={tv_show_name}'
 
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession(trust_env=True) as session:
         async with session.get(tv_show_api) as response:
             data = await response.json()
             return data
+
 
 def reg_student(request):
     if request.method == "POST":
@@ -52,17 +53,20 @@ def reg_student(request):
 
         hashed_password = make_password(password)
 
-        Student.objects.create(first_name=first_name, last_name=last_name, birth_date=birth_date, address=address, phone_number=phone_number, email=email, username=username, password=hashed_password)
+        Student.objects.create(first_name=first_name, last_name=last_name, birth_date=birth_date, address=address,
+                               phone_number=phone_number, email=email, username=username, password=hashed_password)
         return HttpResponse(
-        f'''
+            f'''
             <h3>Congrats! you have successfully registered!! </h3>
             <p> Your username is: {username} </p>
             <p> Your password is: {password} </p>
         '''
         )
-    
+
     else:
-        return render(request,'reg_student.html')
+        return render(request, 'reg_student.html')
+
+
 async def get_tv_show_details(request):
     if request.method == "POST":
         show_name = request.POST.get('show_name')
@@ -80,35 +84,40 @@ async def get_tv_show_details(request):
         return render(request, 'tv_shows.html', {'found_show': True, 'imdb_score': imdb_score, 'official_site': official_site, 'image': image, 'summary': summary})
     else:
         return render(request, 'tv_shows.html')
-    
+
+
 def student_login(request):
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        db_password = Student.objects.filter(username=username).values('password').first()
+        db_password = Student.objects.filter(
+            username=username).values('password').first()
 
         if db_password is not None and check_password(password, db_password['password']):
             session_token = secrets.token_hex(32)
             request.session['session_token'] = session_token
-            Student.objects.filter(username=username).update(session_token=session_token)
+            Student.objects.filter(username=username).update(
+                session_token=session_token)
             return redirect('student_profile')
         else:
-            return render(request,'student_login.html', {'error': 'Invalid username or password'})
+            return render(request, 'student_login.html', {'error': 'Invalid username or password'})
         # return redirect('index')
 
     else:
         return render(request, 'student_login.html')
-    
+
+
 def student_profile_page(request):
     session_token = request.session.get('session_token')
     print(session_token)
     if session_token:
-        student = Student.objects.filter(session_token=session_token).values().first()
+        student = Student.objects.filter(
+            session_token=session_token).values().first()
         student.pop('password')
         student.pop('session_token')
         student.pop('id')
-        
+
         return render(request, 'student_profile.html', {'student_data': student})
     else:
         return render(request, 'student_profile.html', {'student_data': False})
